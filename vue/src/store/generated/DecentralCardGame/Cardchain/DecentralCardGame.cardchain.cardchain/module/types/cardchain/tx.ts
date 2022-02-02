@@ -71,6 +71,16 @@ export interface MsgAddArtwork {
 
 export interface MsgAddArtworkResponse {}
 
+export interface MsgReportCopyrightViolation {
+  creator: string;
+  cardId: number;
+  originalArtist: string;
+  link: string;
+  additionalInfo: string;
+}
+
+export interface MsgReportCopyrightViolationResponse {}
+
 const baseMsgCreateuser: object = { creator: "", newUser: "", alias: "" };
 
 export const MsgCreateuser = {
@@ -1149,6 +1159,203 @@ export const MsgAddArtworkResponse = {
   },
 };
 
+const baseMsgReportCopyrightViolation: object = {
+  creator: "",
+  cardId: 0,
+  originalArtist: "",
+  link: "",
+  additionalInfo: "",
+};
+
+export const MsgReportCopyrightViolation = {
+  encode(
+    message: MsgReportCopyrightViolation,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.cardId !== 0) {
+      writer.uint32(16).uint64(message.cardId);
+    }
+    if (message.originalArtist !== "") {
+      writer.uint32(26).string(message.originalArtist);
+    }
+    if (message.link !== "") {
+      writer.uint32(34).string(message.link);
+    }
+    if (message.additionalInfo !== "") {
+      writer.uint32(42).string(message.additionalInfo);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgReportCopyrightViolation {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgReportCopyrightViolation,
+    } as MsgReportCopyrightViolation;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.cardId = longToNumber(reader.uint64() as Long);
+          break;
+        case 3:
+          message.originalArtist = reader.string();
+          break;
+        case 4:
+          message.link = reader.string();
+          break;
+        case 5:
+          message.additionalInfo = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgReportCopyrightViolation {
+    const message = {
+      ...baseMsgReportCopyrightViolation,
+    } as MsgReportCopyrightViolation;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.cardId !== undefined && object.cardId !== null) {
+      message.cardId = Number(object.cardId);
+    } else {
+      message.cardId = 0;
+    }
+    if (object.originalArtist !== undefined && object.originalArtist !== null) {
+      message.originalArtist = String(object.originalArtist);
+    } else {
+      message.originalArtist = "";
+    }
+    if (object.link !== undefined && object.link !== null) {
+      message.link = String(object.link);
+    } else {
+      message.link = "";
+    }
+    if (object.additionalInfo !== undefined && object.additionalInfo !== null) {
+      message.additionalInfo = String(object.additionalInfo);
+    } else {
+      message.additionalInfo = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgReportCopyrightViolation): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.cardId !== undefined && (obj.cardId = message.cardId);
+    message.originalArtist !== undefined &&
+      (obj.originalArtist = message.originalArtist);
+    message.link !== undefined && (obj.link = message.link);
+    message.additionalInfo !== undefined &&
+      (obj.additionalInfo = message.additionalInfo);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgReportCopyrightViolation>
+  ): MsgReportCopyrightViolation {
+    const message = {
+      ...baseMsgReportCopyrightViolation,
+    } as MsgReportCopyrightViolation;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.cardId !== undefined && object.cardId !== null) {
+      message.cardId = object.cardId;
+    } else {
+      message.cardId = 0;
+    }
+    if (object.originalArtist !== undefined && object.originalArtist !== null) {
+      message.originalArtist = object.originalArtist;
+    } else {
+      message.originalArtist = "";
+    }
+    if (object.link !== undefined && object.link !== null) {
+      message.link = object.link;
+    } else {
+      message.link = "";
+    }
+    if (object.additionalInfo !== undefined && object.additionalInfo !== null) {
+      message.additionalInfo = object.additionalInfo;
+    } else {
+      message.additionalInfo = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgReportCopyrightViolationResponse: object = {};
+
+export const MsgReportCopyrightViolationResponse = {
+  encode(
+    _: MsgReportCopyrightViolationResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgReportCopyrightViolationResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgReportCopyrightViolationResponse,
+    } as MsgReportCopyrightViolationResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgReportCopyrightViolationResponse {
+    const message = {
+      ...baseMsgReportCopyrightViolationResponse,
+    } as MsgReportCopyrightViolationResponse;
+    return message;
+  },
+
+  toJSON(_: MsgReportCopyrightViolationResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgReportCopyrightViolationResponse>
+  ): MsgReportCopyrightViolationResponse {
+    const message = {
+      ...baseMsgReportCopyrightViolationResponse,
+    } as MsgReportCopyrightViolationResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   Createuser(request: MsgCreateuser): Promise<MsgCreateuserResponse>;
@@ -1159,8 +1366,11 @@ export interface Msg {
   ): Promise<MsgSaveCardContentResponse>;
   TransferCard(request: MsgTransferCard): Promise<MsgTransferCardResponse>;
   DonateToCard(request: MsgDonateToCard): Promise<MsgDonateToCardResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   AddArtwork(request: MsgAddArtwork): Promise<MsgAddArtworkResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  ReportCopyrightViolation(
+    request: MsgReportCopyrightViolation
+  ): Promise<MsgReportCopyrightViolationResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -1249,6 +1459,20 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgAddArtworkResponse.decode(new Reader(data))
+    );
+  }
+
+  ReportCopyrightViolation(
+    request: MsgReportCopyrightViolation
+  ): Promise<MsgReportCopyrightViolationResponse> {
+    const data = MsgReportCopyrightViolation.encode(request).finish();
+    const promise = this.rpc.request(
+      "DecentralCardGame.cardchain.cardchain.Msg",
+      "ReportCopyrightViolation",
+      data
+    );
+    return promise.then((data) =>
+      MsgReportCopyrightViolationResponse.decode(new Reader(data))
     );
   }
 }

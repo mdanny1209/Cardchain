@@ -20186,6 +20186,8 @@ definitions:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgDonateToCardResponse:
     type: object
+  DecentralCardGame.cardchain.cardchain.MsgReportCopyrightViolationResponse:
+    type: object
   DecentralCardGame.cardchain.cardchain.MsgSaveCardContentResponse:
     type: object
   DecentralCardGame.cardchain.cardchain.MsgTransferCardResponse:

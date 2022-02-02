@@ -52,6 +52,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgAddArtwork int = 100
 
+	opWeightMsgReportCopyrightViolation = "op_weight_msg_create_chain"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgReportCopyrightViolation int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -160,6 +164,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgAddArtwork,
 		cardchainsimulation.SimulateMsgAddArtwork(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgReportCopyrightViolation int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgReportCopyrightViolation, &weightMsgReportCopyrightViolation, nil,
+		func(_ *rand.Rand) {
+			weightMsgReportCopyrightViolation = defaultWeightMsgReportCopyrightViolation
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgReportCopyrightViolation,
+		cardchainsimulation.SimulateMsgReportCopyrightViolation(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

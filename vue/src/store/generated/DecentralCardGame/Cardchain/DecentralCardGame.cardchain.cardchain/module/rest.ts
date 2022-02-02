@@ -17,6 +17,8 @@ export type CardchainMsgCreateuserResponse = object;
 
 export type CardchainMsgDonateToCardResponse = object;
 
+export type CardchainMsgReportCopyrightViolationResponse = object;
+
 export type CardchainMsgSaveCardContentResponse = object;
 
 export type CardchainMsgTransferCardResponse = object;
