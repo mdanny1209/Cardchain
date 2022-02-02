@@ -2,11 +2,12 @@ package cardchain
 
 import (
 	"fmt"
-	"strconv"
+//	"strconv"
 
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/keeper"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
-	gov "github.com/cosmos/cosmos-sdk/x/gov/types"
+	// gov "github.com/cosmos/cosmos-sdk/x/gov/types"
+	// govMod "github.com/cosmos/cosmos-sdk/x/gov"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
@@ -36,8 +37,8 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 			return handleMsgDonateToCard(ctx, k, msg)
 		case *types.MsgCreateuser:
 			return handleMsgCreateUser(ctx, k, msg)
-		case *types.MsgReportCopyrightViolation:
-			return handleMsgReportCopyrightViolation(ctx, k, msg)
+		// case *types.MsgReportCopyrightViolation:
+		// 	return handleMsgReportCopyrightViolation(ctx, k, msg)
 		// this line is used by starport scaffolding # 1
 		default:
 			errMsg := fmt.Sprintf("unrecognized %s message type: %T", types.ModuleName, msg)
@@ -46,32 +47,34 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 	}
 }
 
-func handleMsgReportCopyrightViolation(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgReportCopyrightViolation) (*sdk.Result, error) {
-	card := keeper.GetCard(ctx, msg.CardId)
-
-	creator, err := sdk.AccAddressFromBech32(msg.Creator)
-	if err != nil {
-		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
-	}
-
-	cardId := strconv.FormatUint(msg.CardId, 10)
-
-	content := gov.NewTextProposal(
-		"Copyright violation on card" + cardId,
-		"The Card `" + cardId + "` with the artist `" + card.Artist + "` is a copyright violation.\n" + msg.AdditionalInfo + "\n\nLink: " + msg.Link,
-	)
-
-	_, err = gov.NewMsgSubmitProposal(
-		content,
-		sdk.Coins{sdk.NewInt64Coin("credits", 10)},
-		creator,
-	)
-	if err != nil {
-		return nil, err
-	}
-
-	return &sdk.Result{}, nil
-}
+// func handleMsgReportCopyrightViolation(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgReportCopyrightViolation) (*sdk.Result, error) {
+// 	card := keeper.GetCard(ctx, msg.CardId)
+//
+// 	govHandler := govMod.NewHandler(keeper)
+//
+// 	creator, err := sdk.AccAddressFromBech32(msg.Creator)
+// 	if err != nil {
+// 		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, "Unable to convert to AccAddress")
+// 	}
+//
+// 	cardId := strconv.FormatUint(msg.CardId, 10)
+//
+// 	content := gov.NewTextProposal(
+// 		"Copyright violation on card" + cardId,
+// 		"The Card `" + cardId + "` with the artist `" + card.Artist + "` is a copyright violation.\n" + msg.AdditionalInfo + "\n\nLink: " + msg.Link,
+// 	)
+//
+// 	msg, err := gov.NewMsgSubmitProposal(
+// 		content,
+// 		sdk.Coins{sdk.NewInt64Coin("credits", 10)},
+// 		creator,
+// 	)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+//
+// 	return govHandler(ctx, msg)
+// }
 
 func handleMsgAddArtwork(ctx sdk.Context, keeper keeper.Keeper, msg *types.MsgAddArtwork) (*sdk.Result, error) {
 	card := keeper.GetCard(ctx, msg.CardId)
