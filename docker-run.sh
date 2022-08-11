@@ -25,7 +25,7 @@ Cardchaind init $NODE_MONIKER --chain-id $CHAIN_ID
 
 
 
-Cardchain unsafe-reset-all
+Cardchaind unsafe-reset-all
 wget -O $HOME/.Cardchain/config/addrbook.json "https://raw.githubusercontent.com/StakeTake/guidecosmos/main/CrowdControl/Cardchain/addrbook.json"
 SEEDS=""
 PEERS="a89083b131893ca8a379c9b18028e26fa250473c@159.69.11.174:36656"; \
@@ -43,7 +43,7 @@ s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"| ; \
 s|^(seeds[[:space:]]+=[[:space:]]+).*$|\1\"\"|" $HOME/.Cardchain/config/config.toml
 
 # config pruning
-indexer="null"
+indexer="kv"
 pruning="custom"
 pruning_keep_recent="100"
 pruning_keep_every="0"
@@ -55,7 +55,8 @@ sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_rec
 sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" $HOME/.Cardchain/config/app.toml
 sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/.Cardchain/config/app.toml
 
-
+echo -e "'\033[0;31m' starting faucet '\033[0m'"
+pm2 start ./faucetserver/server.js
 
 Cardchaind start
 

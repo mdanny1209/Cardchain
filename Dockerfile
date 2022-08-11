@@ -2,12 +2,14 @@ FROM ignitehq/cli:0.23.0
 
 USER root
 RUN apt-get -y -qq update && \
-	apt-get install -y -qq curl && \
+	apt-get install -y -qq curl nodejs npm && \
 	apt-get clean
 #
 # install jq to parse json within bash scripts
 RUN curl -o /usr/local/bin/jq http://stedolan.github.io/jq/download/linux64/jq && \
   chmod +x /usr/local/bin/jq
+
+RUN npm i pm2 -g
 
 USER tendermint
 
