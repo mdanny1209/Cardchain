@@ -25,7 +25,7 @@ Cardchaind init $NODE_MONIKER --chain-id $CHAIN_ID
 
 
 
-Cardchaind unsafe-reset-all
+#Cardchaind unsafe-reset-all
 wget -O $HOME/.Cardchain/config/addrbook.json "https://raw.githubusercontent.com/StakeTake/guidecosmos/main/CrowdControl/Cardchain/addrbook.json"
 SEEDS=""
 PEERS="a89083b131893ca8a379c9b18028e26fa250473c@159.69.11.174:36656"; \

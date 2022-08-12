@@ -20,8 +20,14 @@ init:
     consensus:
       timeout_commit: "5s"
       create_empty_blocks: "false"
+    tx_index:
+      indexer: "kv"
+    rpc:
+      laddr: "tcp://0.0.0.0:26657"
   app:
     #minimum-gas-prices: "0.1ubpf, 0.1ucredits"
+    api:
+      enable: "true"
 faucet:
   name: bob
   coins: ["5000000ucredits", "5000000ubpf"]
@@ -41,7 +47,7 @@ genesis:
     slashing:
       params:
         signed_blocks_window: '30000'
-        min_signed_per_window: '0.05' 
+        min_signed_per_window: '0.05'
     mint:
       params:
         mint_denom: "ubpf"
