@@ -16,9 +16,10 @@ CHAIN_ID=Cardchain
 #curl https://get.ignite.com/DecentralCardGame/Cardchain@latest! | sudo bash
 
 
-echo  "Initializing Cardchain..."
-Cardchaind config chain-id $CHAIN_ID
-Cardchaind init $NODE_MONIKER --chain-id $CHAIN_ID
+#echo  "Initializing Cardchain..."
+#Cardchaind config chain-id $CHAIN_ID
+#Cardchaind init $NODE_MONIKER --chain-id $CHAIN_ID
+
 
 #echo  "Getting Genesis file..."
 #cp $HOME/Testnet1/genesis.json $HOME/.Cardchain/config/genesis.json

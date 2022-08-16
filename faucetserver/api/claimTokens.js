@@ -34,7 +34,7 @@ module.exports = async (req, res, next) => {
 
 async function claimToken(address) {
     try {
-        const cmd = await exec(`Cardchain tx cardchain createuser ${address} newUser --from faucet --gas auto --node=${process.env.RPC_NODE} -y`);
+        const cmd = await exec(`Cardchaind tx cardchain createuser ${address} newUser --from faucet --gas auto --node=${process.env.RPC_NODE} -y`);
         const data = cmd.stdout.toString().split('\n');
         for (let line of data) {
             if (line.includes('txhash:')) {
