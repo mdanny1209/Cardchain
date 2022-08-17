@@ -6,27 +6,21 @@
 echo -e "'\033[0;31m' fasten your seatbelts '\033[0m'"
 
 
-
 NODE_MONIKER=ccRocks
 CHAIN_ID=Cardchain
 
-#PEERS="61f05a01167b1aec59275f74c3d7c3dc7e9388d4@45.136.28.158:26658"
-
 #echo  "Downloading Binary..."
 #curl https://get.ignite.com/DecentralCardGame/Cardchain@latest! | sudo bash
-
 
 #echo  "Initializing Cardchain..."
 #Cardchaind config chain-id $CHAIN_ID
 #Cardchaind init $NODE_MONIKER --chain-id $CHAIN_ID
 
 
-#echo  "Getting Genesis file..."
-#cp $HOME/Testnet1/genesis.json $HOME/.Cardchain/config/genesis.json
-
-
-
 #Cardchaind unsafe-reset-all
+echo  "Getting Genesis file..."
+wget -O $HOME/.Cardchain/config/genesis.json "https://raw.githubusercontent.com/DecentralCardGame/Testnet1/main/genesis.json"
+echo  "Getting Addrbook file..."
 wget -O $HOME/.Cardchain/config/addrbook.json "https://raw.githubusercontent.com/StakeTake/guidecosmos/main/CrowdControl/Cardchain/addrbook.json"
 SEEDS=""
 PEERS="a89083b131893ca8a379c9b18028e26fa250473c@159.69.11.174:36656"; \
