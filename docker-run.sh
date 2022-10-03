@@ -51,7 +51,7 @@ sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every
 sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/.Cardchain/config/app.toml
 
 echo -e "'\033[0;31m' starting faucet '\033[0m'"
-pm2 start ./faucetserver/server.js
+
 
 Cardchaind start
 
