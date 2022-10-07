@@ -160,6 +160,30 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgSetProfileCard int = 100
 
+	opWeightMsgOpenBoosterPack = "op_weight_msg_open_booster_pack"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgOpenBoosterPack int = 100
+
+	opWeightMsgTransferBoosterPack = "op_weight_msg_transfer_booster_pack"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgTransferBoosterPack int = 100
+
+	opWeightMsgSetCollectionStoryWriter = "op_weight_msg_set_collection_story_writer"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgSetCollectionStoryWriter int = 100
+
+	opWeightMsgSetCollectionArtist = "op_weight_msg_set_collection_artist"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgSetCollectionArtist int = 100
+
+	opWeightMsgSetUserWebsite = "op_weight_msg_set_user_website"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgSetUserWebsite int = 100
+
+	opWeightMsgSetUserBiography = "op_weight_msg_set_user_biography"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgSetUserBiography int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -565,6 +589,72 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgSetProfileCard,
 		cardchainsimulation.SimulateMsgSetProfileCard(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgOpenBoosterPack int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgOpenBoosterPack, &weightMsgOpenBoosterPack, nil,
+		func(_ *rand.Rand) {
+			weightMsgOpenBoosterPack = defaultWeightMsgOpenBoosterPack
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgOpenBoosterPack,
+		cardchainsimulation.SimulateMsgOpenBoosterPack(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgTransferBoosterPack int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgTransferBoosterPack, &weightMsgTransferBoosterPack, nil,
+		func(_ *rand.Rand) {
+			weightMsgTransferBoosterPack = defaultWeightMsgTransferBoosterPack
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgTransferBoosterPack,
+		cardchainsimulation.SimulateMsgTransferBoosterPack(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgSetCollectionStoryWriter int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSetCollectionStoryWriter, &weightMsgSetCollectionStoryWriter, nil,
+		func(_ *rand.Rand) {
+			weightMsgSetCollectionStoryWriter = defaultWeightMsgSetCollectionStoryWriter
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgSetCollectionStoryWriter,
+		cardchainsimulation.SimulateMsgSetCollectionStoryWriter(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgSetCollectionArtist int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSetCollectionArtist, &weightMsgSetCollectionArtist, nil,
+		func(_ *rand.Rand) {
+			weightMsgSetCollectionArtist = defaultWeightMsgSetCollectionArtist
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgSetCollectionArtist,
+		cardchainsimulation.SimulateMsgSetCollectionArtist(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgSetUserWebsite int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSetUserWebsite, &weightMsgSetUserWebsite, nil,
+		func(_ *rand.Rand) {
+			weightMsgSetUserWebsite = defaultWeightMsgSetUserWebsite
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgSetUserWebsite,
+		cardchainsimulation.SimulateMsgSetUserWebsite(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgSetUserBiography int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSetUserBiography, &weightMsgSetUserBiography, nil,
+		func(_ *rand.Rand) {
+			weightMsgSetUserBiography = defaultWeightMsgSetUserBiography
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgSetUserBiography,
+		cardchainsimulation.SimulateMsgSetUserBiography(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

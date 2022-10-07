@@ -1,11 +1,11 @@
 package keeper
 
 import (
-	"encoding/json"
 	"context"
+	"encoding/json"
 
-	"github.com/DecentralCardGame/cardobject/keywords"
 	"github.com/DecentralCardGame/Cardchain/x/cardchain/types"
+	"github.com/DecentralCardGame/cardobject/keywords"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
@@ -20,6 +20,11 @@ func (k msgServer) SaveCardContent(goCtx context.Context, msg *types.MsgSaveCard
 		return nil, sdkerrors.Wrap(types.ErrInvalidAccAddress, err.Error())
 	}
 
+	// TODO
+	//if card.Status != types.Status_prototype {
+	//	return nil, sdkerrors.Wrap(types.ErrInvalidCardStatus, "Card has to be a prototype to be changeable")
+	//}
+
 	if card.Owner == "" {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "Card has no owner")
 	} else if msg.Creator != card.Owner { // Checks if the the msg sender is the same as the current owner
@@ -28,13 +33,13 @@ func (k msgServer) SaveCardContent(goCtx context.Context, msg *types.MsgSaveCard
 
 	cardobj, err := keywords.Unmarshal([]byte(msg.Content))
 	if err != nil {
-		return nil, sdkerrors.Wrap(err, "Invalid Cardobject")
+		return nil, sdkerrors.Wrap(types.ErrCardobject, err.Error())
 
 	}
 
 	card.Content, err = json.Marshal(cardobj)
 	if err != nil {
-		return nil, sdkerrors.Wrap(err, "Invalid Cardobject")
+		return nil, sdkerrors.Wrap(types.ErrCardobject, err.Error())
 	}
 
 	card.Notes = msg.Notes

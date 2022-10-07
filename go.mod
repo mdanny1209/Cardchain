@@ -3,7 +3,7 @@ module github.com/DecentralCardGame/Cardchain
 go 1.18
 
 require (
-	github.com/DecentralCardGame/cardobject v0.4.12
+	github.com/DecentralCardGame/cardobject v0.4.13
 	github.com/cosmos/cosmos-sdk v0.44.5
 	github.com/cosmos/ibc-go v1.2.2
 	github.com/gogo/protobuf v1.3.3
@@ -17,7 +17,7 @@ require (
 	github.com/tendermint/tendermint v0.34.14
 	github.com/tendermint/tm-db v0.6.4
 	golang.org/x/exp v0.0.0-20220314205449-43aec2f8a4e7
-	google.golang.org/genproto v0.0.0-20220805133916-01dd62135a58
+	google.golang.org/genproto v0.0.0-20220822174746-9e6da59bd2fc
 	google.golang.org/grpc v1.48.0
 	gopkg.in/yaml.v2 v2.4.0
 )
