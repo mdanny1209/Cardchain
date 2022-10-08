@@ -19,7 +19,7 @@ CHAIN_ID=Cardchain
 
 #Cardchaind unsafe-reset-all
 echo  "Getting Genesis file..."
-wget -O $HOME/.Cardchain/config/genesis.json "https://raw.githubusercontent.com/DecentralCardGame/Testnet1/main/genesis.json"
+wget -O $HOME/.Cardchain/config/genesis.json "https://raw.githubusercontent.com/DecentralCardGame/Testnet/main/genesis.json"
 echo  "Getting Addrbook file..."
 wget -O $HOME/.Cardchain/config/addrbook.json "https://raw.githubusercontent.com/StakeTake/guidecosmos/main/CrowdControl/Cardchain/addrbook.json"
 SEEDS=""
