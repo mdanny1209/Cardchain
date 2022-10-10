@@ -31,7 +31,7 @@ RUN chmod +x ./docker-run.sh
 
 
 RUN ignite chain build
-RUN ignite chain init
+RUN ignite chain init --home .Cardchain
 
 #RUN python3 ./scripts/migrate_with_data.py ./blockchain-data/exported_genesis.json ~/.Cardchain/config/genesis.json
 

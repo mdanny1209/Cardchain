@@ -1,31 +1,22 @@
 #!/bin/bash
 
-# TODO
-#if false && test -f "/var/blockchain/exported_genesis.json"; then
-
 echo -e "'\033[0;31m' fasten your seatbelts '\033[0m'"
-
-
-NODE_MONIKER=ccRocks
+FAUCET_SECRET_KEY=""
 CHAIN_ID=Cardchain
 
-#echo  "Downloading Binary..."
-#curl https://get.ignite.com/DecentralCardGame/Cardchain@latest! | sudo bash
-
-#echo  "Initializing Cardchain..."
-#Cardchaind config chain-id $CHAIN_ID
-#Cardchaind init $NODE_MONIKER --chain-id $CHAIN_ID
 
 
 #Cardchaind unsafe-reset-all
 echo  "Getting Genesis file..."
-#wget -O $HOME/.Cardchain/config/genesis.json "https://raw.githubusercontent.com/DecentralCardGame/Testnet/main/genesis.json"
+wget -O $HOME/.Cardchain/config/genesis.json "https://raw.githubusercontent.com/DecentralCardGame/Testnet/main/genesis.json"
 echo  "Getting Addrbook file..."
-#wget -O $HOME/.Cardchain/config/addrbook.json "https://raw.githubusercontent.com/StakeTake/guidecosmos/main/CrowdControl/Cardchain/addrbook.json"
+wget -qO $HOME/.Cardchain/config/addrbook.json https://github.com/AlexToTheMoon/AM-Solutions/raw/main/addrbooks/addrbook-crowd.json
 SEEDS=""
 PEERS="a89083b131893ca8a379c9b18028e26fa250473c@159.69.11.174:36656"; \
 sed -i.bak -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.Cardchain/config/config.toml
-SNAP_RPC="http://cc.stake-take.com:36657"
+
+SNAP_RPC="http://161.97.167.120:26657"
+
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
 BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
 TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
@@ -51,8 +42,10 @@ sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every
 sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/.Cardchain/config/app.toml
 
 echo -e "'\033[0;31m' starting faucet '\033[0m'"
+sed -i -e "s/^SECRET_KEY *=.*/SECRET_KEY = \"$FAUCET_SECRET_KEY\"/" go-faucet-master/.env
 cd go-faucet-master
-screen -AmdS faucet go-faucet
+#screen -AmdS faucet go-faucet
+./go-faucet &
 
 Cardchaind start
 
