@@ -19,9 +19,9 @@ CHAIN_ID=Cardchain
 
 #Cardchaind unsafe-reset-all
 echo  "Getting Genesis file..."
-wget -O $HOME/.Cardchain/config/genesis.json "https://raw.githubusercontent.com/DecentralCardGame/Testnet/main/genesis.json"
+#wget -O $HOME/.Cardchain/config/genesis.json "https://raw.githubusercontent.com/DecentralCardGame/Testnet/main/genesis.json"
 echo  "Getting Addrbook file..."
-wget -O $HOME/.Cardchain/config/addrbook.json "https://raw.githubusercontent.com/StakeTake/guidecosmos/main/CrowdControl/Cardchain/addrbook.json"
+#wget -O $HOME/.Cardchain/config/addrbook.json "https://raw.githubusercontent.com/StakeTake/guidecosmos/main/CrowdControl/Cardchain/addrbook.json"
 SEEDS=""
 PEERS="a89083b131893ca8a379c9b18028e26fa250473c@159.69.11.174:36656"; \
 sed -i.bak -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.Cardchain/config/config.toml
@@ -51,13 +51,11 @@ sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every
 sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/.Cardchain/config/app.toml
 
 echo -e "'\033[0;31m' starting faucet '\033[0m'"
-
+cd go-faucet-master
+screen -AmdS faucet go-faucet
 
 Cardchaind start
 
-
-# empty blocks would be nice, but this doesn't start the faucet
-#Cardchaind start --consensus.create_empty_blocks false
 
 #ignite chain serve
 
