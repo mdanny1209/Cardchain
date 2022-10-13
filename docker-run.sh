@@ -1,10 +1,12 @@
 #!/bin/bash
 
-echo -e "'\033[0;31m' fasten your seatbelts '\033[0m'"
+set -eo pipefail
+
+echo -e "\033[0;31mfasten your seatbelts\033[0m"
 FAUCET_SECRET_KEY=""
 CHAIN_ID=Cardchain
 
-
+mkdir -p $HOME/.Cardchain/config
 
 #Cardchaind unsafe-reset-all
 echo  "Getting Genesis file..."
@@ -48,7 +50,6 @@ cd go-faucet-master
 ./go-faucet &
 
 Cardchaind start
-
 
 #ignite chain serve
 

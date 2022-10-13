@@ -2,10 +2,9 @@ version: '3'
 services:
 
   blockchain:
+    platform: linux/amd64
     build: .
     command: ./docker-run.sh
-    volumes:
-       - /home/tendermint/
     ports:
       - 26657:26657
       - 26658:26658
