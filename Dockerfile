@@ -10,8 +10,6 @@ RUN curl -o /usr/local/bin/jq http://stedolan.github.io/jq/download/linux64/jq &
   chmod +x /usr/local/bin/jq
 
 
-
-
 USER tendermint
 WORKDIR /home/tendermint
 
@@ -33,6 +31,9 @@ RUN chmod +x ./docker-run.sh
 RUN ignite chain build
 RUN ignite chain init
 
-#RUN python3 ./scripts/migrate_with_data.py ./blockchain-data/exported_genesis.json ~/.Cardchain/config/genesis.json
+#RUN	mkdir -p $HOME/.Cardchain/config
+RUN wget -O $HOME/.Cardchain/config/genesis.json "https://raw.githubusercontent.com/DecentralCardGame/Testnet/main/genesis.json"
+RUN	wget -O $HOME/.Cardchain/config/addrbook.json https://github.com/AlexToTheMoon/AM-Solutions/raw/main/addrbooks/addrbook-crowd.json
+
 
 ENTRYPOINT ./docker-run.sh

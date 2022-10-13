@@ -6,13 +6,6 @@ echo -e "\033[0;31mfasten your seatbelts\033[0m"
 FAUCET_SECRET_KEY=""
 CHAIN_ID=Cardchain
 
-mkdir -p $HOME/.Cardchain/config
-
-#Cardchaind unsafe-reset-all
-echo  "Getting Genesis file..."
-wget -O $HOME/.Cardchain/config/genesis.json "https://raw.githubusercontent.com/DecentralCardGame/Testnet/main/genesis.json"
-echo  "Getting Addrbook file..."
-wget -qO $HOME/.Cardchain/config/addrbook.json https://github.com/AlexToTheMoon/AM-Solutions/raw/main/addrbooks/addrbook-crowd.json
 SEEDS=""
 PEERS="a89083b131893ca8a379c9b18028e26fa250473c@159.69.11.174:36656"; \
 sed -i.bak -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.Cardchain/config/config.toml
@@ -46,12 +39,6 @@ sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $
 echo -e "'\033[0;31m' starting faucet '\033[0m'"
 sed -i -e "s/^SECRET_KEY *=.*/SECRET_KEY = \"$FAUCET_SECRET_KEY\"/" go-faucet-master/.env
 cd go-faucet-master
-#screen -AmdS faucet go-faucet
 ./go-faucet &
 
 Cardchaind start
-
-#ignite chain serve
-
-# the following line is evaluated if csd is terminated via pkill (docker-stop-and-export.sh)
-#Cardchaind export > ~/.ignite/local-chains/Cardchain/exported_genesis.json
