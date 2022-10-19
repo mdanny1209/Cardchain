@@ -2,7 +2,6 @@ version: '3'
 services:
 
   blockchain:
-    platform: linux/amd64
     build: .
     command: ./docker-run.sh
     ports:
