@@ -7,10 +7,10 @@ FAUCET_SECRET_KEY=""
 CHAIN_ID=Cardchain
 
 SEEDS=""
-PEERS="a89083b131893ca8a379c9b18028e26fa250473c@159.69.11.174:36656"; \
+PEERS="c33a6ea0c7f82b4cc99f6f62a0e7ffdb3046a345@cardchain-testnet.nodejumper.io:30656,56d11635447fa77163f31119945e731c55e256a4@45.136.28.158:26658"; \
 sed -i.bak -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.Cardchain/config/config.toml
 
-SNAP_RPC="http://161.97.167.120:26657"
+SNAP_RPC="https://cardchain-testnet.nodejumper.io:443"
 
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
 BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
@@ -41,4 +41,5 @@ sed -i -e "s/^SECRET_KEY *=.*/SECRET_KEY = \"$FAUCET_SECRET_KEY\"/" go-faucet-ma
 cd go-faucet-master
 ./go-faucet &
 
+echo -e "\033[0;31mstarting Blockchain\033[0m"
 Cardchaind start
