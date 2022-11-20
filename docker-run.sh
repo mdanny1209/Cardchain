@@ -3,7 +3,7 @@
 set -eo pipefail
 
 echo -e "\033[0;32mfasten your seatbelts\033[0m"
-FAUCET_SECRET_KEY="a"
+FAUCET_SECRET_KEY=""
 CHAIN_ID=Cardchain
 
 if [ -z "$FAUCET_SECRET_KEY" ] 
