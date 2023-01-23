@@ -6,7 +6,7 @@ echo -e "\033[0;32mfasten your seatbelts\033[0m"
 FAUCET_SECRET_KEY=""
 CHAIN_ID=Cardchain
 
-if [ -z "$FAUCET_SECRET_KEY" ] 
+if [ -z "$FAUCET_SECRET_KEY" ]
 then
 	echo -e "\033[0;31mNO SECRET KEY FOR FAUCET CONFIGURED! \033[0m"
 	exit 1
@@ -16,8 +16,8 @@ SEEDS=""
 PEERS="c33a6ea0c7f82b4cc99f6f62a0e7ffdb3046a345@cardchain-testnet.nodejumper.io:30656,56d11635447fa77163f31119945e731c55e256a4@45.136.28.158:26658"; \
 sed -i.bak -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.Cardchain/config/config.toml
 
-SNAP_RPCs=("http://rpc.crowd.ppnv.space:5657" 
-"https://cardchain-testnet.nodejumper.io:443" 
+SNAP_RPCs=("http://rpc.crowd.ppnv.space:5657"
+"https://cardchain-testnet.nodejumper.io:443"
 "https://cardchain-rpc.acloud.pp.ua:443")
 
 for i in "${SNAP_RPCs[@]}"; do
@@ -67,3 +67,8 @@ echo -e "\033[0;31mfaucet adress: \033[0;36m $(Cardchaind keys show alice --addr
 
 echo -e "\033[0;32mstarting Blockchain\033[0m"
 Cardchaind start
+
+# backup area (this will be executed if the Cardchaind process is killed)
+now=$(date +"%d.%m.%Y")
+Cardchaind export > /backup/genesis$now.json
+echo "BACKUP should be in /backup/genesis$now"

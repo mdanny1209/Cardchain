@@ -25,7 +25,7 @@ EXPOSE 4500
 
 COPY --chown=tendermint:tendermint . .
 
-RUN chmod +x ./docker-run.sh
+
 
 
 RUN ignite chain build
@@ -35,5 +35,7 @@ RUN ignite chain init
 RUN wget -O $HOME/.Cardchain/config/genesis.json "https://raw.githubusercontent.com/DecentralCardGame/Testnet/main/genesis.json"
 RUN	wget -O $HOME/.Cardchain/config/addrbook.json https://github.com/AlexToTheMoon/AM-Solutions/raw/main/addrbooks/addrbook-crowd.json
 
+RUN echo $HOME
 
+RUN chmod +x ./docker-run.sh
 ENTRYPOINT ./docker-run.sh

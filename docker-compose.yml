@@ -4,6 +4,9 @@ services:
   blockchain:
     build: .
     command: ./docker-run.sh
+    volumes:
+      - ./backup:/backup
+      - ./docker-run.sh:/home/tendermint/docker-run.sh
     ports:
       - 26657:26657
       - 26658:26658
@@ -26,6 +29,3 @@ services:
     command: /bin/bash -c "exec nginx -g 'daemon off;'"
     depends_on:
       - blockchain
-
-volumes:
-  database-data: # named volumes can be managed easier using docker-compose
